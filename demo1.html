@@ -29,6 +29,12 @@
             -moz-border-radius: 8px;
             border-radius: 8px;
         }
+        #close{
+            cursor: pointer;
+            position: absolute;
+            top: 2px;
+            right: 4px;
+        }
     </style>
 </head>
 <body>
@@ -142,7 +148,9 @@
 
     </a-scene>
 
-    <div id="tips" class="common" >可任意内容</div>
+    <div id="tips" class="common" >可任意内容
+        <div id="close">X</div>
+    </div>
 
 
 </div>
@@ -155,7 +163,34 @@
 //    circle1.addEventListener('click',function () {
 //        console.log('模仿传统方式触发点击事件')
 //    },false)
+    var tips=document.getElementById('tips');
+    var close=document.getElementById('close');
+    close.addEventListener('click',function () {
+        tips.style.display='none';
+    },false)
+
+
+    var commonF={
+        isClickOther:function (id,callback) {
+            document.addEventListener('click',function (e) {
+                e = window.event || e;
+                obj = e.srcElement ? e.srcElement : e.target;
+                var array = id.split(",");
+                if (obj.id != array[0] && obj.id != array[1]) {
+                    if ((callback && typeof (callback) === "function") && callback()) {
+                        callback();
+                    }
+                    return;
+                }
+
+            },false)
+        }
+    }
+//    commonF.isClickOther('tips',function () {
+//        document.getElementById('tips').style.display='none';
+//    })
 </script>
+
 
 
 
